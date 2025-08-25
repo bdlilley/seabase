@@ -1,0 +1,138 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+android {
+    namespace 'com.bdlilley.seabase'
+
+    compileSdk 36
+
+
+    packagingOptions {
+        pickFirst '**/libc++_shared.so'
+        pickFirst '**/libjsc.so'
+        doNotStrip "*/arm64-v8a/*.so"
+        doNotStrip "*/armeabi-v7a/*.so"
+    }
+
+
+    packagingOptions {
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+    }
+
+    packagingOptions {
+        doNotStrip "*/*/libconstants.so"
+        doNotStrip "*/*/libdji_innertools.so"
+        doNotStrip "*/*/libdjibase.so"
+        doNotStrip "*/*/libDJICSDKCommon.so"
+        doNotStrip "*/*/libDJIFlySafeCore-CSDK.so"
+        doNotStrip "*/*/libdjifs_jni-CSDK.so"
+        doNotStrip "*/*/libDJIRegister.so"
+        doNotStrip "*/*/libdjisdk_jni.so"
+        doNotStrip "*/*/libDJIUpgradeCore.so"
+        doNotStrip "*/*/libDJIUpgradeJNI.so"
+        doNotStrip "*/*/libDJIWaypointV2Core-CSDK.so"
+        doNotStrip "*/*/libdjiwpv2-CSDK.so"
+        doNotStrip "*/*/libFlightRecordEngine.so"
+        doNotStrip "*/*/libvideo-framing.so"
+        doNotStrip "*/*/libwaes.so"
+        doNotStrip "*/*/libagora-rtsa-sdk.so"
+        doNotStrip "*/*/libc++.so"
+        doNotStrip "*/*/libc++_shared.so"
+        doNotStrip "*/*/libmrtc_28181.so"
+        doNotStrip "*/*/libmrtc_agora.so"
+        doNotStrip "*/*/libmrtc_core.so"
+        doNotStrip "*/*/libmrtc_core_jni.so"
+        doNotStrip "*/*/libmrtc_data.so"
+        doNotStrip "*/*/libmrtc_log.so"
+        doNotStrip "*/*/libmrtc_onvif.so"
+        doNotStrip "*/*/libmrtc_rtmp.so"
+        doNotStrip "*/*/libmrtc_rtsp.so"
+    }
+
+    defaultConfig {
+        applicationId "com.bdlilley.seabase"
+        minSdk 24
+        targetSdk 36
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+
+        packagingOptions {
+            pickFirst 'lib/arm64-v8a/libc++_shared.so'
+            pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        }
+
+        packagingOptions {
+            doNotStrip "*/*/libconstants.so"
+            doNotStrip "*/*/libdji_innertools.so"
+            doNotStrip "*/*/libdjibase.so"
+            doNotStrip "*/*/libDJICSDKCommon.so"
+            doNotStrip "*/*/libDJIFlySafeCore-CSDK.so"
+            doNotStrip "*/*/libdjifs_jni-CSDK.so"
+            doNotStrip "*/*/libDJIRegister.so"
+            doNotStrip "*/*/libdjisdk_jni.so"
+            doNotStrip "*/*/libDJIUpgradeCore.so"
+            doNotStrip "*/*/libDJIUpgradeJNI.so"
+            doNotStrip "*/*/libDJIWaypointV2Core-CSDK.so"
+            doNotStrip "*/*/libdjiwpv2-CSDK.so"
+            doNotStrip "*/*/libFlightRecordEngine.so"
+            doNotStrip "*/*/libvideo-framing.so"
+            doNotStrip "*/*/libwaes.so"
+            doNotStrip "*/*/libagora-rtsa-sdk.so"
+            doNotStrip "*/*/libc++.so"
+            doNotStrip "*/*/libc++_shared.so"
+            doNotStrip "*/*/libmrtc_28181.so"
+            doNotStrip "*/*/libmrtc_agora.so"
+            doNotStrip "*/*/libmrtc_core.so"
+            doNotStrip "*/*/libmrtc_core_jni.so"
+            doNotStrip "*/*/libmrtc_data.so"
+            doNotStrip "*/*/libmrtc_log.so"
+            doNotStrip "*/*/libmrtc_onvif.so"
+            doNotStrip "*/*/libmrtc_rtmp.so"
+            doNotStrip "*/*/libmrtc_rtsp.so"
+        }
+    }
+    signingConfigs {
+        debug {
+            // Uses default debug keystore
+        }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    implementation "androidx.multidex:multidex:2.0.1"
+
+    // DJI SDK v5
+    implementation "com.dji:dji-sdk-v5-aircraft:5.15.0"
+    compileOnly   "com.dji:dji-sdk-v5-aircraft-provided:5.15.0"
+    implementation 'com.dji:dji-sdk-v5-networkImp:5.15.0'
+
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+}

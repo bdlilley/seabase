@@ -1,0 +1,14 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+plugins {
+    alias(libs.plugins.android.application) apply false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
